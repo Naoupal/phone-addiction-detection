@@ -5,4 +5,3 @@ scikit-learn
 xgboost
 joblib
 matplotlib
-jokowi ahok jokowi bermain api
