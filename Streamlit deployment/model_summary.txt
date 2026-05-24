@@ -1,0 +1,5 @@
+Smartphone Addiction Detection — Hybrid CNN+XGBoost
+Imbalance method : No Handling
+XGBoost best CV  : 0.6210
+CNN best val acc : 0.5864
+Meta-learner C   : 10
