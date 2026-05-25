@@ -59,10 +59,28 @@ html, body, [class*="css"] { font-family: 'Poppins', sans-serif; }
 # ─── Load Models ──────────────────────────────────────────────
 @st.cache_resource
 def load_models():
-    model_dir = r"E:\Python - Project\phone-addiction-detection\Final Proggres\save_model"
-    if not os.path.exists(model_dir):
+    # Cari folder model di beberapa lokasi
+    # Gunakan current working directory (tempat kamu jalankan streamlit run)
+    cwd = os.getcwd()
+    script_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else cwd
+    possible_dirs = [
+        os.path.join(cwd, "save_model"),
+        os.path.join(cwd, "saved_models"),
+        os.path.join(script_dir, "save_model"),
+        os.path.join(script_dir, "saved_models"),
+        "save_model",
+        "saved_models",
+    ]
+    model_dir = None
+    for d in possible_dirs:
+        if os.path.exists(d) and os.path.isdir(d):
+            # Pastikan folder berisi file model
+            if os.path.exists(os.path.join(d, "xgb_cnn_augmented.pkl")):
+                model_dir = d
+                break
+    if model_dir is None:
         raise FileNotFoundError(
-            f"Folder '{model_dir}' tidak ditemukan. "
+            f"Folder model tidak ditemukan. Dicari di: {possible_dirs}. "
             "Jalankan train_model.py terlebih dahulu."
         )
 
